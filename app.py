@@ -1,9 +1,15 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import Flask, render_template
 
-@app.route("/")
-def hello():
-  return "<h1><center>Hello World app! Version 5</center><h1>"
+app=Flask(__name__)
 
-if __name__ == "__main__":
-  app.run(host='0.0.0.0',port=5000)
+@app.route('/')
+def home():
+    app.route('/')
+    return render_template("home.html")
+
+@app.route('/about/')
+def about():
+    return render_template("about.html")
+
+if __name__=="__main__":
+    app.run(debug=True)
