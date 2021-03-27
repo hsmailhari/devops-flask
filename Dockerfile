@@ -1,17 +1,22 @@
-FROM alpine:3.8
+FROM python:3.8.2-alpine3.11
 
-RUN mkdir /var/flaskapp
+ENV FLASK_APP=flaskr
+ENV FLASK_ENV=development
 
-WORKDIR /var/flaskapp
+COPY . /app
 
-COPY .  .
+WORKDIR /app
 
-RUN apk update
+RUN pip install --editable .
 
-RUN apk add python3
+RUN flask init-db
 
-RUN pip3 install -r requirement.txt
+# Unit tests
+# RUN pip install pytest && pytest
 
-EXPOSE 5000 
+EXPOSE 5000
 
-CMD ["python3","app.py"]
+CMD [ "flask", "run", "--host=0.0.0.0" ]
+
+
+
